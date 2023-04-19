@@ -1,0 +1,2376 @@
+---
+swagger: "2.0"
+info:
+  version: "v1"
+  title: "KubePi Restful API"
+  termsOfService: "http://kubeoperator.io"
+  contact:
+    name: "Fit2cloud Support"
+    url: "https://www.fit2cloud.com"
+    email: "support@fit2cloud.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/kubepi/api/v1"
+paths:
+  /clusters:
+    get:
+      tags:
+      - "clusters"
+      summary: "List all clusters"
+      description: "List all clusters"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Cluster"
+    post:
+      tags:
+      - "clusters"
+      summary: "Create Cluster"
+      description: "Create Cluster"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/internal_model_v1_cluster.Cluster"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/internal_model_v1_cluster.Cluster"
+  /clusters/{cluster}/clusterroles:
+    get:
+      tags:
+      - "clusters"
+      summary: "List all clusterRoles"
+      description: "List all clusterRoles"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/v1.ClusterRole"
+    post:
+      tags:
+      - "clusters"
+      summary: "Create Cluster Role"
+      description: "Create Cluster Role"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/v1.ClusterRole"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/v1.ClusterRole"
+  /clusters/{cluster}/clusterroles/{clusterrole}:
+    put:
+      tags:
+      - "clusters"
+      summary: "Update Cluster Role"
+      description: "Update Cluster Role"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - name: "clusterrole"
+        in: "path"
+        description: "权限名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Clusterrole"
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/v1.ClusterRole"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/v1.ClusterRole"
+    delete:
+      tags:
+      - "clusters"
+      summary: "Delete clusterRole by name"
+      description: "Delete clusterRole by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - name: "clusterrole"
+        in: "path"
+        description: "权限名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Clusterrole"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "number"
+  /clusters/{cluster}/members:
+    get:
+      tags:
+      - "clusters"
+      summary: "List all ClusterMembers"
+      description: "List all ClusterMembers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/cluster.Member"
+    post:
+      tags:
+      - "clusters"
+      summary: "Create Cluster Member"
+      description: "Create Cluster Member"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/cluster.Member"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/cluster.Member"
+  /clusters/{cluster}/members/{member}:
+    get:
+      tags:
+      - "clusters"
+      summary: "Get Cluster Member By name"
+      description: "Get Cluster Member By name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - name: "member"
+        in: "path"
+        description: "成员名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Member"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/cluster.Member"
+    put:
+      tags:
+      - "clusters"
+      summary: "Update Cluster Member"
+      description: "Update Cluster Member"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - name: "member"
+        in: "path"
+        description: "成员名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Member"
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/cluster.Member"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/cluster.Member"
+    delete:
+      tags:
+      - "clusters"
+      summary: "Delete clusterMember by name"
+      description: "Delete clusterMember by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - name: "member"
+        in: "path"
+        description: "成员名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Member"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "number"
+  /clusters/{cluster}/repos:
+    get:
+      tags:
+      - "clusters"
+      summary: "Get ClusterRepo Detail"
+      description: "Get ClusterRepo Detail"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/imagerepo.ImageRepo"
+    post:
+      tags:
+      - "clusters"
+      summary: "Create Cluster Repo"
+      description: "Create Cluster Repo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/cluster.CreateRepo"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/cluster.CreateRepo"
+  /clusters/{cluster}/repos/{repo}:
+    delete:
+      tags:
+      - "clusters"
+      summary: "Delete clusterRepo by name"
+      description: "Delete clusterRepo by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - name: "repo"
+        in: "path"
+        description: "镜像仓库名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Repo"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "number"
+  /clusters/{name}:
+    get:
+      tags:
+      - "clusters"
+      summary: "Get cluster by name"
+      description: "Get cluster by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Cluster"
+    put:
+      tags:
+      - "clusters"
+      summary: "Update cluster by name"
+      description: "Update cluster by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/cluster.UpdateCluster"
+        x-exportParamName: "Request"
+      - name: "name"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/cluster.UpdateCluster"
+    delete:
+      tags:
+      - "clusters"
+      summary: "Delete cluster by name"
+      description: "Delete cluster by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Cluster"
+  /imagerepos:
+    post:
+      tags:
+      - "repos"
+      summary: "Create repo"
+      description: "Create repo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/imagerepo.RepoConfig"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/imagerepo.RepoConfig"
+  /imagerepos/{cluster}/{repo}:
+    put:
+      tags:
+      - "repos"
+      summary: "List images for cluster"
+      description: "Get images for cluster"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      - name: "repo"
+        in: "path"
+        description: "镜像仓库名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Repo"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+  /imagerepos/{name}:
+    get:
+      tags:
+      - "repos"
+      summary: "Get repo by name"
+      description: "Get repo by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "镜像仓库名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/imagerepo.ImageRepo"
+    put:
+      tags:
+      - "repos"
+      summary: "Update repo by name"
+      description: "Update repo by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/imagerepo.RepoConfig"
+        x-exportParamName: "Request"
+      - name: "name"
+        in: "path"
+        description: "镜像仓库名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/imagerepo.ImageRepo"
+    delete:
+      tags:
+      - "repos"
+      summary: "Delete repo by name"
+      description: "Delete repo by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "镜像仓库名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/imagerepo.ImageRepo"
+  /imagerepos/{repo}/search:
+    get:
+      tags:
+      - "repos"
+      summary: "List images by repo"
+      description: "Get images by repo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "repo"
+        in: "path"
+        description: "镜像仓库名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Repo"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/imagerepo.RepoResponse"
+  /imagerepos/cluster/{cluster}:
+    get:
+      tags:
+      - "repos"
+      summary: "List repo for cluster"
+      description: "Get repo for cluster"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cluster"
+        in: "path"
+        description: "集群名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Cluster"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/imagerepo.ImageRepo"
+  /imagerepos/repositories/search:
+    post:
+      tags:
+      - "repos"
+      summary: "List Internal repos"
+      description: "List Internal repos"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/imagerepo.RepoConfig"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+  /roles:
+    get:
+      tags:
+      - "roles"
+      summary: "List all roles"
+      description: "List all roles"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/role.Role"
+    post:
+      tags:
+      - "roles"
+      summary: "Create role"
+      description: "Create role"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/role.Role"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/role.Role"
+  /roles/{name}:
+    get:
+      tags:
+      - "roles"
+      summary: "Get role by name"
+      description: "Get role by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "权限名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/role.Role"
+    put:
+      tags:
+      - "roles"
+      summary: "Update role by name"
+      description: "Update role by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "角色名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/role.Role"
+    delete:
+      tags:
+      - "roles"
+      summary: "Delete role by name"
+      description: "Delete role by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "角色名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/role.Role"
+  /sessions:
+    post:
+      tags:
+      - "sessions"
+      summary: "User Login"
+      description: "User Login"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/session.LoginCredential"
+        x-exportParamName: "Request"
+      responses:
+        "200":
+          description: "OK"
+  /users:
+    get:
+      tags:
+      - "users"
+      summary: "List all users"
+      description: "List all users"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/user.User"
+    post:
+      tags:
+      - "users"
+      summary: "Create user"
+      description: "Create user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "request"
+        required: true
+        schema:
+          $ref: "#/definitions/docs.UserCreate"
+        x-exportParamName: "Request"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/user.User"
+  /users/{name}:
+    get:
+      tags:
+      - "users"
+      summary: "Get user by name"
+      description: "Get user by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "用户名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/user.User"
+    put:
+      tags:
+      - "users"
+      summary: "Update user by name"
+      description: "Update user by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "用户名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/user.User"
+    delete:
+      tags:
+      - "users"
+      summary: "Delete user by name"
+      description: "Delete user by name"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "用户名称"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/user.User"
+  /users/search:
+    post:
+      tags:
+      - "users"
+      summary: "Search users"
+      description: "Search users by Condition"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      security:
+      - ApiKeyAuth: []
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/api.Page"
+securityDefinitions:
+  ApiKeyAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  api.Page:
+    type: "object"
+    properties:
+      items: {}
+      total:
+        type: "integer"
+    example:
+      total: 0
+      items: ""
+  cluster.CreateRepo:
+    type: "object"
+    properties:
+      cluster:
+        type: "string"
+      repos:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      cluster: "cluster"
+      repos:
+      - "repos"
+      - "repos"
+  cluster.Member:
+    type: "object"
+    properties:
+      bindingName:
+        type: "string"
+      clusterRoles:
+        type: "array"
+        items:
+          type: "string"
+      createAt:
+        type: "string"
+      name:
+        type: "string"
+      namespaceRoles:
+        type: "array"
+        items:
+          $ref: "#/definitions/cluster.NamespaceRoles"
+    example:
+      name: "name"
+      namespaceRoles:
+      - roles:
+        - "roles"
+        - "roles"
+        namespace: "namespace"
+      - roles:
+        - "roles"
+        - "roles"
+        namespace: "namespace"
+      clusterRoles:
+      - "clusterRoles"
+      - "clusterRoles"
+      bindingName: "bindingName"
+      createAt: "createAt"
+  cluster.NamespaceRoles:
+    type: "object"
+    properties:
+      namespace:
+        type: "string"
+      roles:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      roles:
+      - "roles"
+      - "roles"
+      namespace: "namespace"
+  cluster.UpdateCluster:
+    type: "object"
+    properties:
+      labels:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      labels:
+      - "labels"
+      - "labels"
+  clusterrepo.ClusterRepo:
+    type: "object"
+    properties:
+      apiVersion:
+        type: "string"
+      builtIn:
+        type: "boolean"
+      cluster:
+        type: "string"
+      createAt:
+        type: "string"
+      createdBy:
+        type: "string"
+      description:
+        type: "string"
+      kind:
+        type: "string"
+      name:
+        type: "string"
+      repo:
+        type: "string"
+      updateAt:
+        type: "string"
+      uuid:
+        type: "string"
+  docs.Authenticate:
+    type: "object"
+    properties:
+      password:
+        type: "string"
+  docs.Mfa:
+    type: "object"
+    properties:
+      enable:
+        type: "boolean"
+  docs.UserCreate:
+    type: "object"
+    properties:
+      authenticate:
+        $ref: "#/definitions/docs.Authenticate"
+      email:
+        type: "string"
+      isAdmin:
+        type: "boolean"
+      mfa:
+        $ref: "#/definitions/docs.Mfa"
+      name:
+        type: "string"
+      nickName:
+        type: "string"
+      roles:
+        type: "array"
+        items:
+          type: "string"
+  github.com_KubeOperator_kubepi_internal_model_v1_cluster.Authentication:
+    type: "object"
+    properties:
+      bearerToken:
+        type: "string"
+      certificate:
+        $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Certificate"
+      configFileContent:
+        type: "array"
+        items:
+          type: "integer"
+      mode:
+        type: "string"
+    example:
+      mode: "mode"
+      configFileContent:
+      - 5
+      - 5
+      bearerToken: "bearerToken"
+      certificate:
+        keyData:
+        - 6
+        - 6
+        certData:
+        - 0
+        - 0
+  github.com_KubeOperator_kubepi_internal_model_v1_cluster.Certificate:
+    type: "object"
+    properties:
+      certData:
+        type: "array"
+        items:
+          type: "integer"
+      keyData:
+        type: "array"
+        items:
+          type: "integer"
+    example:
+      keyData:
+      - 6
+      - 6
+      certData:
+      - 0
+      - 0
+  github.com_KubeOperator_kubepi_internal_model_v1_cluster.Cluster:
+    type: "object"
+    properties:
+      apiVersion:
+        type: "string"
+      builtIn:
+        type: "boolean"
+      caCertificate:
+        $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Certificate"
+      createAt:
+        type: "string"
+      createdBy:
+        type: "string"
+      description:
+        type: "string"
+      kind:
+        type: "string"
+      labels:
+        type: "array"
+        items:
+          type: "string"
+      name:
+        type: "string"
+      privateKey:
+        type: "array"
+        items:
+          type: "integer"
+      spec:
+        $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Spec"
+      status:
+        $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Status"
+      updateAt:
+        type: "string"
+      uuid:
+        type: "string"
+    example:
+      kind: "kind"
+      builtIn: true
+      description: "description"
+      updateAt: "updateAt"
+      uuid: "uuid"
+      createAt: "createAt"
+      spec:
+        connect:
+          forward:
+            proxy:
+              password: "password"
+              url: "url"
+              username: "username"
+            apiServer: "apiServer"
+          direction: "direction"
+        local: true
+        authentication:
+          mode: "mode"
+          configFileContent:
+          - 5
+          - 5
+          bearerToken: "bearerToken"
+          certificate:
+            keyData:
+            - 6
+            - 6
+            certData:
+            - 0
+            - 0
+      labels:
+      - "labels"
+      - "labels"
+      privateKey:
+      - 1
+      - 1
+      apiVersion: "apiVersion"
+      createdBy: "createdBy"
+      name: "name"
+      caCertificate:
+        keyData:
+        - 6
+        - 6
+        certData:
+        - 0
+        - 0
+      status:
+        phase: "phase"
+        message: "message"
+        version: "version"
+  github.com_KubeOperator_kubepi_internal_model_v1_cluster.Connect:
+    type: "object"
+    properties:
+      direction:
+        type: "string"
+      forward:
+        $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Forward"
+    example:
+      forward:
+        proxy:
+          password: "password"
+          url: "url"
+          username: "username"
+        apiServer: "apiServer"
+      direction: "direction"
+  github.com_KubeOperator_kubepi_internal_model_v1_cluster.Forward:
+    type: "object"
+    properties:
+      apiServer:
+        type: "string"
+      proxy:
+        $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Proxy"
+    example:
+      proxy:
+        password: "password"
+        url: "url"
+        username: "username"
+      apiServer: "apiServer"
+  github.com_KubeOperator_kubepi_internal_model_v1_cluster.Proxy:
+    type: "object"
+    properties:
+      password:
+        type: "string"
+      url:
+        type: "string"
+      username:
+        type: "string"
+    example:
+      password: "password"
+      url: "url"
+      username: "username"
+  github.com_KubeOperator_kubepi_internal_model_v1_cluster.Spec:
+    type: "object"
+    properties:
+      authentication:
+        $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Authentication"
+      connect:
+        $ref: "#/definitions/github.com_KubeOperator_kubepi_internal_model_v1_cluster.Connect"
+      local:
+        type: "boolean"
+    example:
+      connect:
+        forward:
+          proxy:
+            password: "password"
+            url: "url"
+            username: "username"
+          apiServer: "apiServer"
+        direction: "direction"
+      local: true
+      authentication:
+        mode: "mode"
+        configFileContent:
+        - 5
+        - 5
+        bearerToken: "bearerToken"
+        certificate:
+          keyData:
+          - 6
+          - 6
+          certData:
+          - 0
+          - 0
+  github.com_KubeOperator_kubepi_internal_model_v1_cluster.Status:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+      phase:
+        type: "string"
+      version:
+        type: "string"
+    example:
+      phase: "phase"
+      message: "message"
+      version: "version"
+  imagerepo.Credential:
+    type: "object"
+    properties:
+      password:
+        type: "string"
+      username:
+        type: "string"
+    example:
+      password: "password"
+      username: "username"
+  imagerepo.ImageRepo:
+    type: "object"
+    properties:
+      allowAnonymous:
+        type: "boolean"
+      apiVersion:
+        type: "string"
+      auth:
+        type: "boolean"
+      builtIn:
+        type: "boolean"
+      createAt:
+        type: "string"
+      createdBy:
+        type: "string"
+      credential:
+        $ref: "#/definitions/imagerepo.Credential"
+      description:
+        type: "string"
+      downloadUrl:
+        type: "string"
+      endPoint:
+        type: "string"
+      kind:
+        type: "string"
+      name:
+        type: "string"
+      repoName:
+        type: "string"
+      type:
+        type: "string"
+      updateAt:
+        type: "string"
+      uuid:
+        type: "string"
+      version:
+        type: "string"
+    example:
+      auth: true
+      kind: "kind"
+      repoName: "repoName"
+      builtIn: true
+      downloadUrl: "downloadUrl"
+      description: "description"
+      updateAt: "updateAt"
+      type: "type"
+      uuid: "uuid"
+      version: "version"
+      createAt: "createAt"
+      allowAnonymous: true
+      endPoint: "endPoint"
+      apiVersion: "apiVersion"
+      credential:
+        password: "password"
+        username: "username"
+      createdBy: "createdBy"
+      name: "name"
+  imagerepo.RepoConfig:
+    type: "object"
+    required:
+    - "limit"
+    - "page"
+    properties:
+      allowAnonymous:
+        type: "boolean"
+      apiVersion:
+        type: "string"
+      auth:
+        type: "boolean"
+      builtIn:
+        type: "boolean"
+      continueToken:
+        type: "string"
+      createAt:
+        type: "string"
+      createdBy:
+        type: "string"
+      credential:
+        $ref: "#/definitions/imagerepo.Credential"
+      description:
+        type: "string"
+      downloadUrl:
+        type: "string"
+      endPoint:
+        type: "string"
+      kind:
+        type: "string"
+      limit:
+        type: "integer"
+      name:
+        type: "string"
+      page:
+        type: "integer"
+      repoName:
+        type: "string"
+      search:
+        type: "string"
+      type:
+        type: "string"
+      updateAt:
+        type: "string"
+      uuid:
+        type: "string"
+      version:
+        type: "string"
+    example:
+      auth: true
+      continueToken: "continueToken"
+      kind: "kind"
+      repoName: "repoName"
+      builtIn: true
+      downloadUrl: "downloadUrl"
+      description: "description"
+      updateAt: "updateAt"
+      type: "type"
+      uuid: "uuid"
+      version: "version"
+      createAt: "createAt"
+      allowAnonymous: true
+      endPoint: "endPoint"
+      search: "search"
+      apiVersion: "apiVersion"
+      credential:
+        password: "password"
+        username: "username"
+      createdBy: "createdBy"
+      limit: 0
+      name: "name"
+      page: 6
+  imagerepo.RepoResponse:
+    type: "object"
+    properties:
+      continueToken:
+        type: "string"
+      items:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      continueToken: "continueToken"
+      items:
+      - "items"
+      - "items"
+  internal_model_v1_cluster.Authentication:
+    type: "object"
+    properties:
+      bearerToken:
+        type: "string"
+      certificate:
+        $ref: "#/definitions/internal_model_v1_cluster.Certificate"
+      configFileContent:
+        type: "array"
+        items:
+          type: "integer"
+      mode:
+        type: "string"
+    example:
+      mode: "mode"
+      configFileContent:
+      - 5
+      - 5
+      bearerToken: "bearerToken"
+      certificate:
+        keyData:
+        - 6
+        - 6
+        certData:
+        - 0
+        - 0
+  internal_model_v1_cluster.Certificate:
+    type: "object"
+    properties:
+      certData:
+        type: "array"
+        items:
+          type: "integer"
+      keyData:
+        type: "array"
+        items:
+          type: "integer"
+    example:
+      keyData:
+      - 6
+      - 6
+      certData:
+      - 0
+      - 0
+  internal_model_v1_cluster.Cluster:
+    type: "object"
+    properties:
+      apiVersion:
+        type: "string"
+      builtIn:
+        type: "boolean"
+      caCertificate:
+        $ref: "#/definitions/internal_model_v1_cluster.Certificate"
+      createAt:
+        type: "string"
+      createdBy:
+        type: "string"
+      description:
+        type: "string"
+      kind:
+        type: "string"
+      labels:
+        type: "array"
+        items:
+          type: "string"
+      name:
+        type: "string"
+      privateKey:
+        type: "array"
+        items:
+          type: "integer"
+      spec:
+        $ref: "#/definitions/internal_model_v1_cluster.Spec"
+      status:
+        $ref: "#/definitions/internal_model_v1_cluster.Status"
+      updateAt:
+        type: "string"
+      uuid:
+        type: "string"
+    example:
+      kind: "kind"
+      builtIn: true
+      description: "description"
+      updateAt: "updateAt"
+      uuid: "uuid"
+      createAt: "createAt"
+      spec:
+        connect:
+          forward:
+            proxy:
+              password: "password"
+              url: "url"
+              username: "username"
+            apiServer: "apiServer"
+          direction: "direction"
+        local: true
+        authentication:
+          mode: "mode"
+          configFileContent:
+          - 5
+          - 5
+          bearerToken: "bearerToken"
+          certificate:
+            keyData:
+            - 6
+            - 6
+            certData:
+            - 0
+            - 0
+      labels:
+      - "labels"
+      - "labels"
+      privateKey:
+      - 1
+      - 1
+      apiVersion: "apiVersion"
+      createdBy: "createdBy"
+      name: "name"
+      caCertificate:
+        keyData:
+        - 6
+        - 6
+        certData:
+        - 0
+        - 0
+      status:
+        phase: "phase"
+        message: "message"
+        version: "version"
+  internal_model_v1_cluster.Connect:
+    type: "object"
+    properties:
+      direction:
+        type: "string"
+      forward:
+        $ref: "#/definitions/internal_model_v1_cluster.Forward"
+    example:
+      forward:
+        proxy:
+          password: "password"
+          url: "url"
+          username: "username"
+        apiServer: "apiServer"
+      direction: "direction"
+  internal_model_v1_cluster.Forward:
+    type: "object"
+    properties:
+      apiServer:
+        type: "string"
+      proxy:
+        $ref: "#/definitions/internal_model_v1_cluster.Proxy"
+    example:
+      proxy:
+        password: "password"
+        url: "url"
+        username: "username"
+      apiServer: "apiServer"
+  internal_model_v1_cluster.Proxy:
+    type: "object"
+    properties:
+      password:
+        type: "string"
+      url:
+        type: "string"
+      username:
+        type: "string"
+    example:
+      password: "password"
+      url: "url"
+      username: "username"
+  internal_model_v1_cluster.Spec:
+    type: "object"
+    properties:
+      authentication:
+        $ref: "#/definitions/internal_model_v1_cluster.Authentication"
+      connect:
+        $ref: "#/definitions/internal_model_v1_cluster.Connect"
+      local:
+        type: "boolean"
+    example:
+      connect:
+        forward:
+          proxy:
+            password: "password"
+            url: "url"
+            username: "username"
+          apiServer: "apiServer"
+        direction: "direction"
+      local: true
+      authentication:
+        mode: "mode"
+        configFileContent:
+        - 5
+        - 5
+        bearerToken: "bearerToken"
+        certificate:
+          keyData:
+          - 6
+          - 6
+          certData:
+          - 0
+          - 0
+  internal_model_v1_cluster.Status:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+      phase:
+        type: "string"
+      version:
+        type: "string"
+    example:
+      phase: "phase"
+      message: "message"
+      version: "version"
+  role.PolicyRule:
+    type: "object"
+    properties:
+      resource:
+        type: "array"
+        items:
+          type: "string"
+      resourceNames:
+        type: "array"
+        items:
+          type: "string"
+      verbs:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      resourceNames:
+      - "resourceNames"
+      - "resourceNames"
+      resource:
+      - "resource"
+      - "resource"
+      verbs:
+      - "verbs"
+      - "verbs"
+  role.Role:
+    type: "object"
+    properties:
+      apiVersion:
+        type: "string"
+      builtIn:
+        type: "boolean"
+      createAt:
+        type: "string"
+      createdBy:
+        type: "string"
+      description:
+        type: "string"
+      kind:
+        type: "string"
+      name:
+        type: "string"
+      rules:
+        type: "array"
+        items:
+          $ref: "#/definitions/role.PolicyRule"
+      updateAt:
+        type: "string"
+      uuid:
+        type: "string"
+    example:
+      apiVersion: "apiVersion"
+      createdBy: "createdBy"
+      kind: "kind"
+      builtIn: true
+      name: "name"
+      description: "description"
+      updateAt: "updateAt"
+      rules:
+      - resourceNames:
+        - "resourceNames"
+        - "resourceNames"
+        resource:
+        - "resource"
+        - "resource"
+        verbs:
+        - "verbs"
+        - "verbs"
+      - resourceNames:
+        - "resourceNames"
+        - "resourceNames"
+        resource:
+        - "resource"
+        - "resource"
+        verbs:
+        - "verbs"
+        - "verbs"
+      uuid: "uuid"
+      createAt: "createAt"
+  session.LoginCredential:
+    type: "object"
+    properties:
+      authMethod:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      username:
+        type: "string"
+  user.Authenticate:
+    type: "object"
+    properties:
+      password:
+        type: "string"
+      token:
+        type: "string"
+    example:
+      password: "password"
+      token: "token"
+  user.Mfa:
+    type: "object"
+    properties:
+      enable:
+        type: "boolean"
+      secret:
+        type: "string"
+    example:
+      enable: true
+      secret: "secret"
+  user.User:
+    type: "object"
+    properties:
+      apiVersion:
+        type: "string"
+      authenticate:
+        $ref: "#/definitions/user.Authenticate"
+      builtIn:
+        type: "boolean"
+      createAt:
+        type: "string"
+      createdBy:
+        type: "string"
+      description:
+        type: "string"
+      email:
+        type: "string"
+      isAdmin:
+        type: "boolean"
+      kind:
+        type: "string"
+      language:
+        type: "string"
+      mfa:
+        $ref: "#/definitions/user.Mfa"
+      name:
+        type: "string"
+      nickName:
+        type: "string"
+      type:
+        type: "string"
+      updateAt:
+        type: "string"
+      uuid:
+        type: "string"
+    example:
+      authenticate:
+        password: "password"
+        token: "token"
+      kind: "kind"
+      nickName: "nickName"
+      builtIn: true
+      description: "description"
+      mfa:
+        enable: true
+        secret: "secret"
+      updateAt: "updateAt"
+      language: "language"
+      isAdmin: true
+      type: "type"
+      uuid: "uuid"
+      createAt: "createAt"
+      apiVersion: "apiVersion"
+      createdBy: "createdBy"
+      name: "name"
+      email: "email"
+  v1.AggregationRule:
+    type: "object"
+    properties:
+      clusterRoleSelectors:
+        type: "array"
+        description: "ClusterRoleSelectors holds a list of selectors which will be\
+          \ used to find ClusterRoles and create the rules.\nIf any of the selectors\
+          \ match, then the ClusterRole's permissions will be added\n+optional"
+        items:
+          $ref: "#/definitions/v1.LabelSelector"
+    example:
+      clusterRoleSelectors:
+      - matchExpressions:
+        - values:
+          - "values"
+          - "values"
+          key: "key"
+          operator: "operator"
+        - values:
+          - "values"
+          - "values"
+          key: "key"
+          operator: "operator"
+        matchLabels:
+          key: "matchLabels"
+      - matchExpressions:
+        - values:
+          - "values"
+          - "values"
+          key: "key"
+          operator: "operator"
+        - values:
+          - "values"
+          - "values"
+          key: "key"
+          operator: "operator"
+        matchLabels:
+          key: "matchLabels"
+  v1.ClusterRole:
+    type: "object"
+    properties:
+      aggregationRule:
+        description: "AggregationRule is an optional field that describes how to build\
+          \ the Rules for this ClusterRole.\nIf AggregationRule is set, then the Rules\
+          \ are controller managed and direct changes to Rules will be\nstomped by\
+          \ the controller.\n+optional"
+        $ref: "#/definitions/v1.AggregationRule"
+      annotations:
+        type: "object"
+        description: "Annotations is an unstructured key value map stored with a resource\
+          \ that may be\nset by external tools to store and retrieve arbitrary metadata.\
+          \ They are not\nqueryable and should be preserved when modifying objects.\n\
+          More info: http://kubernetes.io/docs/user-guide/annotations\n+optional"
+        additionalProperties:
+          type: "string"
+      apiVersion:
+        type: "string"
+        description: "APIVersion defines the versioned schema of this representation\
+          \ of an object.\nServers should convert recognized schemas to the latest\
+          \ internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources\n\
+          +optional"
+      clusterName:
+        type: "string"
+        description: "The name of the cluster which the object belongs to.\nThis is\
+          \ used to distinguish resources with same name and namespace in different\
+          \ clusters.\nThis field is not set anywhere right now and apiserver is going\
+          \ to ignore it if set in create or update request.\n+optional"
+      creationTimestamp:
+        type: "string"
+        description: "CreationTimestamp is a timestamp representing the server time\
+          \ when this object was\ncreated. It is not guaranteed to be set in happens-before\
+          \ order across separate operations.\nClients may not set this value. It\
+          \ is represented in RFC3339 form and is in UTC.\n\nPopulated by the system.\n\
+          Read-only.\nNull for lists.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata\n\
+          +optional"
+      deletionGracePeriodSeconds:
+        type: "integer"
+        description: "Number of seconds allowed for this object to gracefully terminate\
+          \ before\nit will be removed from the system. Only set when deletionTimestamp\
+          \ is also set.\nMay only be shortened.\nRead-only.\n+optional"
+      deletionTimestamp:
+        type: "string"
+        description: "DeletionTimestamp is RFC 3339 date and time at which this resource\
+          \ will be deleted. This\nfield is set by the server when a graceful deletion\
+          \ is requested by the user, and is not\ndirectly settable by a client. The\
+          \ resource is expected to be deleted (no longer visible\nfrom resource lists,\
+          \ and not reachable by name) after the time in this field, once the\nfinalizers\
+          \ list is empty. As long as the finalizers list contains items, deletion\
+          \ is blocked.\nOnce the deletionTimestamp is set, this value may not be\
+          \ unset or be set further into the\nfuture, although it may be shortened\
+          \ or the resource may be deleted prior to this time.\nFor example, a user\
+          \ may request that a pod is deleted in 30 seconds. The Kubelet will react\n\
+          by sending a graceful termination signal to the containers in the pod. After\
+          \ that 30 seconds,\nthe Kubelet will send a hard termination signal (SIGKILL)\
+          \ to the container and after cleanup,\nremove the pod from the API. In the\
+          \ presence of network partitions, this object may still\nexist after this\
+          \ timestamp, until an administrator or automated process can determine the\n\
+          resource is fully terminated.\nIf not set, graceful deletion of the object\
+          \ has not been requested.\n\nPopulated by the system when a graceful deletion\
+          \ is requested.\nRead-only.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata\n\
+          +optional"
+      finalizers:
+        type: "array"
+        description: "Must be empty before the object is deleted from the registry.\
+          \ Each entry\nis an identifier for the responsible component that will remove\
+          \ the entry\nfrom the list. If the deletionTimestamp of the object is non-nil,\
+          \ entries\nin this list can only be removed.\nFinalizers may be processed\
+          \ and removed in any order.  Order is NOT enforced\nbecause it introduces\
+          \ significant risk of stuck finalizers.\nfinalizers is a shared field, any\
+          \ actor with permission can reorder it.\nIf the finalizer list is processed\
+          \ in order, then this can lead to a situation\nin which the component responsible\
+          \ for the first finalizer in the list is\nwaiting for a signal (field value,\
+          \ external system, or other) produced by a\ncomponent responsible for a\
+          \ finalizer later in the list, resulting in a deadlock.\nWithout enforced\
+          \ ordering finalizers are free to order amongst themselves and\nare not\
+          \ vulnerable to ordering changes in the list.\n+optional\n+patchStrategy=merge"
+        items:
+          type: "string"
+      generateName:
+        type: "string"
+        description: "GenerateName is an optional prefix, used by the server, to generate\
+          \ a unique\nname ONLY IF the Name field has not been provided.\nIf this\
+          \ field is used, the name returned to the client will be different\nthan\
+          \ the name passed. This value will also be combined with a unique suffix.\n\
+          The provided value has the same validation rules as the Name field,\nand\
+          \ may be truncated by the length of the suffix required to make the value\n\
+          unique on the server.\n\nIf this field is specified and the generated name\
+          \ exists, the server will\nNOT return a 409 - instead, it will either return\
+          \ 201 Created or 500 with Reason\nServerTimeout indicating a unique name\
+          \ could not be found in the time allotted, and the client\nshould retry\
+          \ (optionally after the time indicated in the Retry-After header).\n\nApplied\
+          \ only if Name is not specified.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency\n\
+          +optional"
+      generation:
+        type: "integer"
+        description: "A sequence number representing a specific generation of the\
+          \ desired state.\nPopulated by the system. Read-only.\n+optional"
+      kind:
+        type: "string"
+        description: "Kind is a string value representing the REST resource this object\
+          \ represents.\nServers may infer this from the endpoint the client submits\
+          \ requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\n\
+          +optional"
+      labels:
+        type: "object"
+        description: "Map of string keys and values that can be used to organize and\
+          \ categorize\n(scope and select) objects. May match selectors of replication\
+          \ controllers\nand services.\nMore info: http://kubernetes.io/docs/user-guide/labels\n\
+          +optional"
+        additionalProperties:
+          type: "string"
+      managedFields:
+        type: "array"
+        description: "ManagedFields maps workflow-id and version to the set of fields\n\
+          that are managed by that workflow. This is mostly for internal\nhousekeeping,\
+          \ and users typically shouldn't need to set or\nunderstand this field. A\
+          \ workflow can be the user's name, a\ncontroller's name, or the name of\
+          \ a specific apply path like\n\"ci-cd\". The set of fields is always in\
+          \ the version that the\nworkflow used when modifying the object.\n\n+optional"
+        items:
+          $ref: "#/definitions/v1.ManagedFieldsEntry"
+      name:
+        type: "string"
+        description: "Name must be unique within a namespace. Is required when creating\
+          \ resources, although\nsome resources may allow a client to request the\
+          \ generation of an appropriate name\nautomatically. Name is primarily intended\
+          \ for creation idempotence and configuration\ndefinition.\nCannot be updated.\n\
+          More info: http://kubernetes.io/docs/user-guide/identifiers#names\n+optional"
+      namespace:
+        type: "string"
+        description: "Namespace defines the space within which each name must be unique.\
+          \ An empty namespace is\nequivalent to the \"default\" namespace, but \"\
+          default\" is the canonical representation.\nNot all objects are required\
+          \ to be scoped to a namespace - the value of this field for\nthose objects\
+          \ will be empty.\n\nMust be a DNS_LABEL.\nCannot be updated.\nMore info:\
+          \ http://kubernetes.io/docs/user-guide/namespaces\n+optional"
+      ownerReferences:
+        type: "array"
+        description: "List of objects depended by this object. If ALL objects in the\
+          \ list have\nbeen deleted, this object will be garbage collected. If this\
+          \ object is managed by a controller,\nthen an entry in this list will point\
+          \ to this controller, with the controller field set to true.\nThere cannot\
+          \ be more than one managing controller.\n+optional\n+patchMergeKey=uid\n\
+          +patchStrategy=merge"
+        items:
+          $ref: "#/definitions/v1.OwnerReference"
+      resourceVersion:
+        type: "string"
+        description: "An opaque value that represents the internal version of this\
+          \ object that can\nbe used by clients to determine when objects have changed.\
+          \ May be used for optimistic\nconcurrency, change detection, and the watch\
+          \ operation on a resource or set of resources.\nClients must treat these\
+          \ values as opaque and passed unmodified back to the server.\nThey may only\
+          \ be valid for a particular resource or set of resources.\n\nPopulated by\
+          \ the system.\nRead-only.\nValue must be treated as opaque by clients and\
+          \ .\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency\n\
+          +optional"
+      rules:
+        type: "array"
+        description: "Rules holds all the PolicyRules for this ClusterRole\n+optional"
+        items:
+          $ref: "#/definitions/v1.PolicyRule"
+      selfLink:
+        type: "string"
+        description: "SelfLink is a URL representing this object.\nPopulated by the\
+          \ system.\nRead-only.\n\nDEPRECATED\nKubernetes will stop propagating this\
+          \ field in 1.20 release and the field is planned\nto be removed in 1.21\
+          \ release.\n+optional"
+      uid:
+        type: "string"
+        description: "UID is the unique in time and space value for this object. It\
+          \ is typically generated by\nthe server on successful creation of a resource\
+          \ and is not allowed to change on PUT\noperations.\n\nPopulated by the system.\n\
+          Read-only.\nMore info: http://kubernetes.io/docs/user-guide/identifiers#uids\n\
+          +optional"
+    example:
+      generation: 6
+      finalizers:
+      - "finalizers"
+      - "finalizers"
+      aggregationRule:
+        clusterRoleSelectors:
+        - matchExpressions:
+          - values:
+            - "values"
+            - "values"
+            key: "key"
+            operator: "operator"
+          - values:
+            - "values"
+            - "values"
+            key: "key"
+            operator: "operator"
+          matchLabels:
+            key: "matchLabels"
+        - matchExpressions:
+          - values:
+            - "values"
+            - "values"
+            key: "key"
+            operator: "operator"
+          - values:
+            - "values"
+            - "values"
+            key: "key"
+            operator: "operator"
+          matchLabels:
+            key: "matchLabels"
+      kind: "kind"
+      resourceVersion: "resourceVersion"
+      annotations:
+        key: "annotations"
+      rules:
+      - resourceNames:
+        - "resourceNames"
+        - "resourceNames"
+        resources:
+        - "resources"
+        - "resources"
+        verbs:
+        - "verbs"
+        - "verbs"
+        apiGroups:
+        - "apiGroups"
+        - "apiGroups"
+        nonResourceURLs:
+        - "nonResourceURLs"
+        - "nonResourceURLs"
+      - resourceNames:
+        - "resourceNames"
+        - "resourceNames"
+        resources:
+        - "resources"
+        - "resources"
+        verbs:
+        - "verbs"
+        - "verbs"
+        apiGroups:
+        - "apiGroups"
+        - "apiGroups"
+        nonResourceURLs:
+        - "nonResourceURLs"
+        - "nonResourceURLs"
+      generateName: "generateName"
+      deletionTimestamp: "deletionTimestamp"
+      labels:
+        key: "labels"
+      ownerReferences:
+      - uid: "uid"
+        controller: true
+        apiVersion: "apiVersion"
+        kind: "kind"
+        name: "name"
+        blockOwnerDeletion: true
+      - uid: "uid"
+        controller: true
+        apiVersion: "apiVersion"
+        kind: "kind"
+        name: "name"
+        blockOwnerDeletion: true
+      selfLink: "selfLink"
+      deletionGracePeriodSeconds: 0
+      uid: "uid"
+      apiVersion: "apiVersion"
+      managedFields:
+      - apiVersion: "apiVersion"
+        fieldsV1: {}
+        manager: "manager"
+        subresource: "subresource"
+        time: "time"
+        operation: "operation"
+        fieldsType: "fieldsType"
+      - apiVersion: "apiVersion"
+        fieldsV1: {}
+        manager: "manager"
+        subresource: "subresource"
+        time: "time"
+        operation: "operation"
+        fieldsType: "fieldsType"
+      clusterName: "clusterName"
+      creationTimestamp: "creationTimestamp"
+      name: "name"
+      namespace: "namespace"
+  v1.FieldsV1:
+    type: "object"
+  v1.LabelSelector:
+    type: "object"
+    properties:
+      matchExpressions:
+        type: "array"
+        description: "matchExpressions is a list of label selector requirements. The\
+          \ requirements are ANDed.\n+optional"
+        items:
+          $ref: "#/definitions/v1.LabelSelectorRequirement"
+      matchLabels:
+        type: "object"
+        description: "matchLabels is a map of {key,value} pairs. A single {key,value}\
+          \ in the matchLabels\nmap is equivalent to an element of matchExpressions,\
+          \ whose key field is \"key\", the\noperator is \"In\", and the values array\
+          \ contains only \"value\". The requirements are ANDed.\n+optional"
+        additionalProperties:
+          type: "string"
+    example:
+      matchExpressions:
+      - values:
+        - "values"
+        - "values"
+        key: "key"
+        operator: "operator"
+      - values:
+        - "values"
+        - "values"
+        key: "key"
+        operator: "operator"
+      matchLabels:
+        key: "matchLabels"
+  v1.LabelSelectorRequirement:
+    type: "object"
+    properties:
+      key:
+        type: "string"
+        description: "key is the label key that the selector applies to.\n+patchMergeKey=key\n\
+          +patchStrategy=merge"
+      operator:
+        type: "string"
+        description: "operator represents a key's relationship to a set of values.\n\
+          Valid operators are In, NotIn, Exists and DoesNotExist."
+      values:
+        type: "array"
+        description: "values is an array of string values. If the operator is In or\
+          \ NotIn,\nthe values array must be non-empty. If the operator is Exists\
+          \ or DoesNotExist,\nthe values array must be empty. This array is replaced\
+          \ during a strategic\nmerge patch.\n+optional"
+        items:
+          type: "string"
+    example:
+      values:
+      - "values"
+      - "values"
+      key: "key"
+      operator: "operator"
+  v1.ManagedFieldsEntry:
+    type: "object"
+    properties:
+      apiVersion:
+        type: "string"
+        description: "APIVersion defines the version of this resource that this field\
+          \ set\napplies to. The format is \"group/version\" just like the top-level\n\
+          APIVersion field. It is necessary to track the version of a field\nset because\
+          \ it cannot be automatically converted."
+      fieldsType:
+        type: "string"
+        description: "FieldsType is the discriminator for the different fields format\
+          \ and version.\nThere is currently only one possible value: \"FieldsV1\""
+      fieldsV1:
+        description: "FieldsV1 holds the first JSON version format as described in\
+          \ the \"FieldsV1\" type.\n+optional"
+        $ref: "#/definitions/v1.FieldsV1"
+      manager:
+        type: "string"
+        description: "Manager is an identifier of the workflow managing these fields."
+      operation:
+        type: "string"
+        description: "Operation is the type of operation which lead to this ManagedFieldsEntry\
+          \ being created.\nThe only valid values for this field are 'Apply' and 'Update'."
+      subresource:
+        type: "string"
+        description: "Subresource is the name of the subresource used to update that\
+          \ object, or\nempty string if the object was updated through the main resource.\
+          \ The\nvalue of this field is used to distinguish between managers, even\
+          \ if they\nshare the same name. For example, a status update will be distinct\
+          \ from a\nregular update using the same manager name.\nNote that the APIVersion\
+          \ field is not related to the Subresource field and\nit always corresponds\
+          \ to the version of the main resource."
+      time:
+        type: "string"
+        description: "Time is timestamp of when these fields were set. It should always\
+          \ be empty if Operation is 'Apply'\n+optional"
+    example:
+      apiVersion: "apiVersion"
+      fieldsV1: {}
+      manager: "manager"
+      subresource: "subresource"
+      time: "time"
+      operation: "operation"
+      fieldsType: "fieldsType"
+  v1.OwnerReference:
+    type: "object"
+    properties:
+      apiVersion:
+        type: "string"
+        description: "API version of the referent."
+      blockOwnerDeletion:
+        type: "boolean"
+        description: "If true, AND if the owner has the \"foregroundDeletion\" finalizer,\
+          \ then\nthe owner cannot be deleted from the key-value store until this\n\
+          reference is removed.\nDefaults to false.\nTo set this field, a user needs\
+          \ \"delete\" permission of the owner,\notherwise 422 (Unprocessable Entity)\
+          \ will be returned.\n+optional"
+      controller:
+        type: "boolean"
+        description: "If true, this reference points to the managing controller.\n\
+          +optional"
+      kind:
+        type: "string"
+        description: "Kind of the referent.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+      name:
+        type: "string"
+        description: "Name of the referent.\nMore info: http://kubernetes.io/docs/user-guide/identifiers#names"
+      uid:
+        type: "string"
+        description: "UID of the referent.\nMore info: http://kubernetes.io/docs/user-guide/identifiers#uids"
+    example:
+      uid: "uid"
+      controller: true
+      apiVersion: "apiVersion"
+      kind: "kind"
+      name: "name"
+      blockOwnerDeletion: true
+  v1.PolicyRule:
+    type: "object"
+    properties:
+      apiGroups:
+        type: "array"
+        description: "APIGroups is the name of the APIGroup that contains the resources.\
+          \  If multiple API groups are specified, any action requested against one\
+          \ of\nthe enumerated resources in any API group will be allowed.\n+optional"
+        items:
+          type: "string"
+      nonResourceURLs:
+        type: "array"
+        description: "NonResourceURLs is a set of partial urls that a user should\
+          \ have access to.  *s are allowed, but only as the full, final step in the\
+          \ path\nSince non-resource URLs are not namespaced, this field is only applicable\
+          \ for ClusterRoles referenced from a ClusterRoleBinding.\nRules can either\
+          \ apply to API resources (such as \"pods\" or \"secrets\") or non-resource\
+          \ URL paths (such as \"/api\"),  but not both.\n+optional"
+        items:
+          type: "string"
+      resourceNames:
+        type: "array"
+        description: "ResourceNames is an optional white list of names that the rule\
+          \ applies to.  An empty set means that everything is allowed.\n+optional"
+        items:
+          type: "string"
+      resources:
+        type: "array"
+        description: "Resources is a list of resources this rule applies to. '*' represents\
+          \ all resources.\n+optional"
+        items:
+          type: "string"
+      verbs:
+        type: "array"
+        description: "Verbs is a list of Verbs that apply to ALL the ResourceKinds\
+          \ and AttributeRestrictions contained in this rule. '*' represents all verbs."
+        items:
+          type: "string"
+    example:
+      resourceNames:
+      - "resourceNames"
+      - "resourceNames"
+      resources:
+      - "resources"
+      - "resources"
+      verbs:
+      - "verbs"
+      - "verbs"
+      apiGroups:
+      - "apiGroups"
+      - "apiGroups"
+      nonResourceURLs:
+      - "nonResourceURLs"
+      - "nonResourceURLs"
