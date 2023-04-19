@@ -17,7 +17,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"git.ybsjyyn.com/devops/kubepi-client/model"
+	"github.com/afghanistanyn/kubepi-client/model"
 )
 
 // Linger please

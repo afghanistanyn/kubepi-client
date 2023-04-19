@@ -13,7 +13,7 @@ package client
 
 import (
 	"context"
-	"git.ybsjyyn.com/devops/kubepi-client/model"
+	"github.com/afghanistanyn/kubepi-client/model"
 	"io/ioutil"
 	"net/http"
 	"net/url"

@@ -1,4 +1,4 @@
-module git.ybsjyyn.com/devops/kubepi-client
+module github.com/afghanistanyn/kubepi-client
 
 go 1.18
 
